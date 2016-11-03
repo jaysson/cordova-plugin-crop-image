@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="cordova-plugin-crop-image"
+        version="1.0.0">
+
+    <name>CropImagePlugin</name>
+
+    <description>
+        Crop an image in a Cordova app
+    </description>
+
+    <license>MIT</license>
+
+    <engines>
+        <engine name="cordova-android" version=">=4.0.0" />
+        <engine name="cordova-ios" version=">=3.5.0" />
+    </engines>
+
+    <js-module src="www/crop.js" name="CropImagePlugin">
+        <clobbers target="plugins.crop_image" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="CropImagePlugin">
+                <param name="android-package" value="com.prabhakarbhat.crop.CropImagePlugin"/>
+            </feature>
+        </config-file>
+
+        <framework src="com.yalantis:ucrop:2.2.0" />
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                android:name="com.yalantis.ucrop.UCropActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+
+        <source-file src="src/android/CropImagePlugin.java" target-dir="src/com/prabhakarbhat/crop" />
+    </platform>
+</plugin>
